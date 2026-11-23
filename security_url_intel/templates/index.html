@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Security Analysis & URL Intelligence Generator - Defensive OSINT query generation, URL structure breakdown, SSL inspection, redirect tracing, and heuristic threat pattern detection.">
+  <title>{{ app_name }} - v{{ app_version }}</title>
+
+  <!-- Google Fonts: Space Grotesk, Inter, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v=3.5">
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/logo.svg') }}">
+</head>
+<body class="theme-dark">
+
+  <!-- Interactive 3D Background Canvas -->
+  <div id="three-container" aria-hidden="true">
+    <canvas id="three-canvas"></canvas>
+    <div class="cyber-grid-overlay"></div>
+    <div class="vignette-overlay"></div>
+  </div>
+
+  <!-- Sticky Glass Navigation Bar -->
+  <header class="glass-navbar">
+    <div class="nav-container">
+      <a href="#hero" class="brand-link" aria-label="Home">
+        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo" class="brand-logo">
+        <div class="brand-text">
+          <span class="brand-title">SECURITY <span class="neon-cyan">INTEL</span></span>
+          <span class="brand-subtitle">URL & OSINT GENERATOR</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="#hero" class="nav-item active"><i class="fas fa-terminal"></i> Home</a>
+        <a href="#dork-section" class="nav-item"><i class="fas fa-search-dollar"></i> OSINT Engine</a>
+        <a href="#analyzer-section" class="nav-item"><i class="fas fa-shield-virus"></i> URL Analyzer</a>
+        <a href="#about-section" class="nav-item"><i class="fas fa-book-dead"></i> Knowledge Base</a>
+        <a href="#help-section" class="nav-item"><i class="fas fa-question-circle"></i> Help &amp; Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <div class="system-status-pill" title="Backend API operational">
+          <span class="status-dot pulsing"></span>
+          <span class="status-text">ONLINE</span>
+        </div>
+
+        <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Theme">
+          <i class="fas fa-sun light-icon"></i>
+          <i class="fas fa-moon dark-icon"></i>
+        </button>
+
+        <button class="mobile-menu-toggle" id="mobileMenuBtn" aria-label="Open Navigation Menu">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Wrap -->
+  <main class="content-wrapper">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-section">
+      <div class="hero-content">
+        <div class="hero-badge animate-badge">
+          <i class="fas fa-fingerprint neon-cyan"></i>
+          <span>DEFENSIVE CYBER INTELLIGENCE & RECONNAISSANCE PLATFORM</span>
+        </div>
+
+        <h1 class="hero-title">
+          <span id="typewriterText">Security Analysis & URL Intelligence</span>
+          <span class="typewriter-cursor">_</span>
+        </h1>
+
+        <p class="hero-description">
+          Empowering cybersecurity researchers and site administrators with customized Google search operator queries, 
+          passive URL structural dissection, SSL certificate verification, redirect tracking, and heuristic phishing pattern detection.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#dork-section" class="btn btn-primary cyber-button glow-cyan">
+            <i class="fas fa-search"></i> Launch OSINT Engine
+          </a>
+          <a href="#analyzer-section" class="btn btn-secondary cyber-button glow-violet">
+            <i class="fas fa-radar"></i> Scan URL Architecture
+          </a>
+        </div>
+
+        <!-- Metric Ribbon -->
+        <div class="hero-stats-row">
+          <div class="stat-glass-card" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.2">
+            <div class="stat-icon"><i class="fas fa-layer-group neon-cyan"></i></div>
+            <div class="stat-number" data-target="9">9</div>
+            <div class="stat-label">OSINT Categories</div>
+          </div>
+          <div class="stat-glass-card" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.2">
+            <div class="stat-icon"><i class="fas fa-shield-alt neon-violet"></i></div>
+            <div class="stat-number" data-target="18">18+</div>
+            <div class="stat-label">Heuristic Threat Rules</div>
+          </div>
+          <div class="stat-glass-card" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.2">
+            <div class="stat-icon"><i class="fas fa-bolt neon-green"></i></div>
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Passive & Safe Probing</div>
+          </div>
+          <div class="stat-glass-card" data-tilt data-tilt-max="10" data-tilt-glare data-tilt-max-glare="0.2">
+            <div class="stat-icon"><i class="fas fa-file-export neon-cyan"></i></div>
+            <div class="stat-number">TXT/CSV/JSON</div>
+            <div class="stat-label">Export Capability</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 1: OSINT QUERY GENERATOR -->
+    <section id="dork-section" class="tool-section">
+      <div class="section-header">
+        <div class="section-tag neon-cyan"><i class="fas fa-brain"></i> MODULE 01</div>
+        <h2 class="section-title">OSINT Search Operator Query Generator</h2>
+        <p class="section-desc">
+          Generate structured Google search dorks to uncover publicly exposed documents, administrative interfaces, 
+          open directory listings, subdomains, and configuration artifacts for authorized security auditing.
+        </p>
+      </div>
+
+      <div class="tool-glass-card" data-tilt data-tilt-max="3" data-tilt-glare data-tilt-max-glare="0.1">
+        <form id="dorkForm" class="cyber-form">
+          <!-- Domain Input -->
+          <div class="form-group">
+            <label for="dorkDomain" class="form-label">
+              <i class="fas fa-globe"></i> Target Domain Name
+              <span class="required-star">*</span>
+            </label>
+            <div class="input-with-actions">
+              <div class="input-icon-prefix"><i class="fas fa-network-wired"></i></div>
+              <input 
+                type="text" 
+                id="dorkDomain" 
+                name="domain" 
+                class="cyber-input" 
+                placeholder="e.g. example.com or target-site.org" 
+                required 
+                autocomplete="off"
+                spellcheck="false"
+              >
+              <button type="button" id="clearDorkDomain" class="input-clear-btn" title="Clear input" aria-label="Clear domain input">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            
+            <!-- Quick Target Suggestion Chips -->
+            <div class="quick-chips">
+              <span class="quick-chip-label">Quick Samples:</span>
+              <button type="button" class="quick-chip" data-domain="example.com">example.com</button>
+              <button type="button" class="quick-chip" data-domain="github.com">github.com</button>
+              <button type="button" class="quick-chip" data-domain="wikipedia.org">wikipedia.org</button>
+            </div>
+          </div>
+
+          <!-- Search Engine Selector -->
+          <div class="form-group">
+            <label for="dorkEngine" class="form-label">
+              <i class="fas fa-sliders-h"></i> Preferred Search Engine
+            </label>
+            <div class="engine-selector-grid">
+              <label class="engine-radio-label active" data-engine="google">
+                <input type="radio" name="searchEngine" value="google" checked>
+                <i class="fab fa-google"></i> Google Search
+              </label>
+              <label class="engine-radio-label" data-engine="bing">
+                <input type="radio" name="searchEngine" value="bing">
+                <i class="fab fa-microsoft"></i> Microsoft Bing
+              </label>
+              <label class="engine-radio-label" data-engine="duckduckgo">
+                <input type="radio" name="searchEngine" value="duckduckgo">
+                <i class="fas fa-shield-alt"></i> DuckDuckGo
+              </label>
+            </div>
+          </div>
+
+          <!-- Category Selection 3D Chips -->
+          <div class="form-group">
+            <div class="category-header-row">
+              <label class="form-label mb-0">
+                <i class="fas fa-th-list"></i> Intelligence Categories (Select desired categories)
+              </label>
+              <div class="category-selection-helpers">
+                <button type="button" id="selectAllCategoriesBtn" class="text-btn">Select All</button>
+                <span class="divider">|</span>
+                <button type="button" id="clearAllCategoriesBtn" class="text-btn">Deselect All</button>
+              </div>
+            </div>
+
+            <div class="category-chips-grid">
+              {% for cat_id, cat in categories.items() %}
+              <label class="category-chip 3d-chip active" data-category="{{ cat_id }}">
+                <input type="checkbox" name="categories" value="{{ cat_id }}" checked>
+                <div class="chip-inner">
+                  <div class="chip-front">
+                    <i class="{{ cat.icon }}"></i>
+                    <span class="chip-title">{{ cat.name }}</span>
+                    <span class="chip-check"><i class="fas fa-check"></i></span>
+                  </div>
+                </div>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Mandatory Authorization Checkbox -->
+          <div class="form-group authorization-box">
+            <label class="cyber-checkbox-label">
+              <input type="checkbox" id="dorkAuthorized" name="authorized" required>
+              <span class="custom-checkbox"></span>
+              <span class="checkbox-text">
+                <strong>Mandatory Ethical Acknowledgment:</strong> I confirm that I am authorized to perform security research and information gathering on this target domain.
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-submit-row">
+            <button type="submit" id="generateDorksBtn" class="btn btn-primary cyber-button pulse-btn">
+              <span class="btn-text"><i class="fas fa-cogs"></i> Generate OSINT Queries</span>
+              <span class="btn-spinner"><i class="fas fa-circle-notch fa-spin"></i> Processing...</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- OSINT Results Glass Container -->
+      <div id="dorkResultsContainer" class="results-container hidden">
+        <div class="results-header-bar">
+          <div class="results-title-group">
+            <h3 class="results-heading"><i class="fas fa-database neon-cyan"></i> Generated Search Queries</h3>
+            <span id="dorkResultsCountBadge" class="results-count-badge">0 Queries</span>
+            <span id="dorkTargetDomainBadge" class="results-domain-badge">domain.com</span>
+          </div>
+
+          <div class="results-actions-group">
+            <button type="button" id="copyAllDorksBtn" class="btn btn-sm btn-outline">
+              <i class="fas fa-copy"></i> Copy All Queries
+            </button>
+            <div class="export-dropdown-wrapper">
+              <button type="button" id="exportDorksDropdownBtn" class="btn btn-sm btn-outline">
+                <i class="fas fa-download"></i> Export <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="export-dropdown-menu" id="dorksExportMenu">
+                <button type="button" class="export-option" data-format="txt" data-type="dorks">
+                  <i class="fas fa-file-alt"></i> Text Report (.txt)
+                </button>
+                <button type="button" class="export-option" data-format="csv" data-type="dorks">
+                  <i class="fas fa-file-csv"></i> CSV Spreadsheet (.csv)
+                </button>
+                <button type="button" class="export-option" data-format="json" data-type="dorks">
+                  <i class="fas fa-file-code"></i> JSON Data (.json)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="category-filters-row" id="dorkCategoryFilters">
+          <button type="button" class="filter-pill active" data-filter="all">All Categories</button>
+        </div>
+
+        <!-- Dynamic Query Cards Grid -->
+        <div class="dork-cards-grid" id="dorkCardsGrid">
+          <!-- Filled dynamically via JS -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- SECTION 2: URL ANALYZER -->
+    <section id="analyzer-section" class="tool-section">
+      <div class="section-header">
+        <div class="section-tag neon-violet"><i class="fas fa-search-location"></i> MODULE 02</div>
+        <h2 class="section-title">Passive URL Architecture & Threat Analyzer</h2>
+        <p class="section-desc">
+          Performs passive structural parsing, DNS resolution, SSL certificate inspection, redirect sequence tracing, 
+          and heuristic detection for suspicious phishing traits, homoglyphs, brand impersonation, and protocol risks.
+        </p>
+      </div>
+
+      <div class="tool-glass-card" data-tilt data-tilt-max="3" data-tilt-glare data-tilt-max-glare="0.1">
+        <form id="analyzerForm" class="cyber-form">
+          <!-- URL Input -->
+          <div class="form-group">
+            <label for="analyzerUrl" class="form-label">
+              <i class="fas fa-link"></i> Target URL to Analyze
+              <span class="required-star">*</span>
+            </label>
+            <div class="input-with-actions">
+              <div class="input-icon-prefix"><i class="fas fa-globe-americas"></i></div>
+              <input 
+                type="text" 
+                id="analyzerUrl" 
+                name="url" 
+                class="cyber-input" 
+                placeholder="https://example.com/login?token=abc" 
+                required 
+                autocomplete="off"
+                spellcheck="false"
+              >
+              <button type="button" id="clearAnalyzerUrl" class="input-clear-btn" title="Clear input" aria-label="Clear URL input">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <!-- Preset Test Scenarios -->
+            <div class="quick-chips">
+              <span class="quick-chip-label">Test Scenarios:</span>
+              <button type="button" class="quick-chip test-scenario-btn" data-url="https://www.google.com/search?q=cybersecurity">
+                <i class="fas fa-check-circle text-green"></i> Normal URL
+              </button>
+              <button type="button" class="quick-chip test-scenario-btn" data-url="https://tinyurl.com/sample-short-link">
+                <i class="fas fa-compress-arrows-alt text-yellow"></i> Shortened URL
+              </button>
+              <button type="button" class="quick-chip test-scenario-btn" data-url="http://paypal.com.account-verification-security.xyz/login.php?user=admin&token=123">
+                <i class="fas fa-exclamation-triangle text-red"></i> Phishing-Style URL
+              </button>
+            </div>
+          </div>
+
+          <!-- Mandatory Authorization Checkbox -->
+          <div class="form-group authorization-box">
+            <label class="cyber-checkbox-label">
+              <input type="checkbox" id="analyzerAuthorized" name="authorized" required>
+              <span class="custom-checkbox"></span>
+              <span class="checkbox-text">
+                <strong>Mandatory Ethical Acknowledgment:</strong> I confirm that I am authorized to examine this URL for security and research purposes.
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="form-submit-row">
+            <button type="submit" id="analyzeUrlBtn" class="btn btn-secondary cyber-button pulse-btn">
+              <span class="btn-text"><i class="fas fa-microscope"></i> Analyze URL Architecture</span>
+              <span class="btn-spinner"><i class="fas fa-circle-notch fa-spin"></i> Scanning Target...</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Radar Scanner Animation Overlay -->
+      <div id="scannerOverlay" class="scanner-overlay hidden">
+        <div class="radar-box">
+          <div class="radar-sweep"></div>
+          <div class="radar-circle circle-1"></div>
+          <div class="radar-circle circle-2"></div>
+          <div class="radar-circle circle-3"></div>
+          <div class="radar-crosshair-h"></div>
+          <div class="radar-crosshair-v"></div>
+          <div class="radar-blip blip-1"></div>
+          <div class="radar-blip blip-2"></div>
+        </div>
+        <div class="scanner-text-group">
+          <div class="scanner-headline">PASSIVE RECONNAISSANCE IN PROGRESS</div>
+          <div class="scanner-subtext" id="scannerProgressText">Resolving DNS records and evaluating SSL handshake...</div>
+        </div>
+      </div>
+
+      <!-- URL Analysis Results Display -->
+      <div id="analyzerResultsContainer" class="results-container hidden">
+        <!-- Risk Overview Banner Card -->
+        <div class="risk-overview-card" id="riskOverviewCard">
+          <div class="risk-gauge-container">
+            <svg class="risk-gauge-svg" viewBox="0 0 120 120">
+              <circle class="gauge-bg" cx="60" cy="60" r="50"></circle>
+              <circle class="gauge-meter" id="riskGaugeMeter" cx="60" cy="60" r="50"></circle>
+            </svg>
+            <div class="gauge-inner-content">
+              <div class="gauge-score-display">
+                <span class="gauge-score-value" id="riskScoreValue">0</span><span class="gauge-percent-symbol">%</span>
+              </div>
+              <span class="gauge-score-label">THREAT SCORE</span>
+            </div>
+          </div>
+
+          <div class="risk-summary-content">
+            <div class="risk-header-row">
+              <div class="risk-level-badge" id="riskLevelBadge">LOW RISK (0%)</div>
+              <span class="risk-target-url" id="riskTargetUrl">https://target.com</span>
+            </div>
+            <p class="risk-narrative" id="riskNarrativeText">
+              Passive analysis completed successfully.
+            </p>
+
+            <!-- Quick Metrics Grid -->
+            <div class="quick-metrics-grid">
+              <div class="metric-pill highlight-risk">
+                <span class="metric-label">Threat Risk:</span>
+                <span class="metric-val text-green" id="metricRiskPercentage">0%</span>
+              </div>
+              <div class="metric-pill highlight-ip">
+                <span class="metric-label">Primary IP:</span>
+                <span class="metric-val mono text-cyan" id="metricIp">-</span>
+              </div>
+              <div class="metric-pill highlight-safety">
+                <span class="metric-label">Safety Index:</span>
+                <span class="metric-val text-green" id="metricSafety">-</span>
+              </div>
+              <div class="metric-pill">
+                <span class="metric-label">Scheme:</span>
+                <span class="metric-val" id="metricScheme">HTTPS</span>
+              </div>
+              <div class="metric-pill">
+                <span class="metric-label">TLD:</span>
+                <span class="metric-val" id="metricTld">.com</span>
+              </div>
+              <div class="metric-pill">
+                <span class="metric-label">Length:</span>
+                <span class="metric-val" id="metricLength">42 chars</span>
+              </div>
+              <div class="metric-pill">
+                <span class="metric-label">SSL Valid:</span>
+                <span class="metric-val" id="metricSsl">Yes</span>
+              </div>
+              <div class="metric-pill">
+                <span class="metric-label">Hops:</span>
+                <span class="metric-val" id="metricHops">1</span>
+              </div>
+              <div class="metric-pill">
+                <span class="metric-label">Flags:</span>
+                <span class="metric-val" id="metricFlags">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="risk-export-actions">
+            <button type="button" id="copyAnalysisSummaryBtn" class="btn btn-sm btn-outline">
+              <i class="fas fa-copy"></i> Copy Summary
+            </button>
+            <button type="button" id="openPdfModalBtn" class="btn btn-sm btn-primary cyber-button glow-cyan">
+              <i class="fas fa-file-pdf"></i> Download PDF
+            </button>
+            <div class="export-dropdown-wrapper">
+              <button type="button" id="exportAnalysisDropdownBtn" class="btn btn-sm btn-outline">
+                <i class="fas fa-download"></i> Save Report <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="export-dropdown-menu" id="analysisExportMenu">
+                <button type="button" class="export-option" data-format="pdf" data-type="analysis">
+                  <i class="fas fa-file-pdf"></i> PDF Document (.pdf)
+                </button>
+                <button type="button" class="export-option" data-format="txt" data-type="analysis">
+                  <i class="fas fa-file-alt"></i> Text Report (.txt)
+                </button>
+                <button type="button" class="export-option" data-format="csv" data-type="analysis">
+                  <i class="fas fa-file-csv"></i> CSV Data (.csv)
+                </button>
+                <button type="button" class="export-option" data-format="json" data-type="analysis">
+                  <i class="fas fa-file-code"></i> JSON Export (.json)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intelligence Section Navigation & Filter Toolbar -->
+        <div class="analysis-view-toolbar">
+          <span class="toolbar-label"><i class="fas fa-layer-group"></i> Intelligence View:</span>
+          <button type="button" class="view-btn active" data-view="all">
+            <i class="fas fa-th-large"></i> All Formatted Data (Default)
+          </button>
+          <button type="button" class="view-btn" data-view="tab-structure">
+            <i class="fas fa-sitemap"></i> URL Structure
+          </button>
+          <button type="button" class="view-btn" data-view="tab-domain-ssl">
+            <i class="fas fa-network-wired"></i> Domain, DNS, IP &amp; SSL
+          </button>
+          <button type="button" class="view-btn" data-view="tab-redirects">
+            <i class="fas fa-route"></i> Redirect Sequence
+          </button>
+          <button type="button" class="view-btn" data-view="tab-flags">
+            <i class="fas fa-shield-virus"></i> Security Flags (<span id="flagsTabCount">0</span>)
+          </button>
+
+        </div>
+
+        <!-- Tab Panels (show-all enabled by default so all analysis cards are formatted & visible) -->
+        <div class="analysis-tab-panels show-all" id="analysisTabPanels">
+
+          <!-- TAB 1: URL STRUCTURE -->
+          <div class="tab-panel active" id="tab-structure">
+            <div class="panel-card">
+              <h4 class="panel-title"><i class="fas fa-code-branch neon-cyan"></i> 1. RFC URL Architecture &amp; Component Breakdown</h4>
+              <div class="table-responsive">
+                <table class="cyber-table">
+                  <thead>
+                    <tr>
+                      <th>Component</th>
+                      <th>Extracted Value</th>
+                      <th>Analysis Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody id="structureTableBody">
+                    <!-- Populated dynamically via JS -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Query Parameters Breakdown Subcard -->
+              <div class="sub-panel mt-4">
+                <h5 class="sub-panel-title">
+                  <i class="fas fa-list-ol"></i> Query Parameters Breakdown (<span id="queryParamCountLabel">0</span> detected)
+                </h5>
+                <div id="queryParamsListContainer">
+                  <!-- Populated dynamically -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: DOMAIN, DNS & SSL -->
+          <div class="tab-panel active" id="tab-domain-ssl">
+            <div class="grid-2col">
+              <!-- Network & DNS Card -->
+              <div class="panel-card">
+                <h4 class="panel-title"><i class="fas fa-network-wired neon-cyan"></i> 2. Domain Intelligence, DNS &amp; IP Resolution</h4>
+                
+                <!-- Primary Resolved IP Callout Banner -->
+                <div class="primary-ip-callout mb-3">
+                  <div class="ip-callout-icon"><i class="fas fa-server neon-cyan"></i></div>
+                  <div class="ip-callout-content">
+                    <span class="ip-callout-label">PRIMARY RESOLVED IP ADDRESS</span>
+                    <span class="ip-callout-val mono" id="primaryIpDisplay">—</span>
+                  </div>
+                </div>
+
+                <div class="detail-rows">
+                  <div class="detail-row">
+                    <span class="detail-label">Registered Domain:</span>
+                    <span class="detail-value mono" id="dnsDomainValue">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Target Hostname:</span>
+                    <span class="detail-value mono" id="dnsHostValue">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Resolved IPv4 List:</span>
+                    <div class="detail-value tag-group" id="dnsIpv4Tags">
+                      <span class="cyber-tag">None</span>
+                    </div>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Resolved IPv6 List:</span>
+                    <div class="detail-value tag-group" id="dnsIpv6Tags">
+                      <span class="cyber-tag">None</span>
+                    </div>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Reverse DNS (PTR):</span>
+                    <span class="detail-value mono" id="dnsPtrValue">N/A</span>
+                  </div>
+                </div>
+
+                <!-- WHOIS Metadata -->
+                <h5 class="sub-panel-title mt-4"><i class="fas fa-id-card"></i> WHOIS Intelligence</h5>
+                <div class="detail-rows" id="whoisRows">
+                  <div class="detail-row">
+                    <span class="detail-label">Registrar:</span>
+                    <span class="detail-value" id="whoisRegistrar">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Domain Age:</span>
+                    <span class="detail-value" id="whoisAge">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Creation Date:</span>
+                    <span class="detail-value mono" id="whoisCreated">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Expiration Date:</span>
+                    <span class="detail-value mono" id="whoisExpires">-</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SSL/TLS Certificate Card -->
+              <div class="panel-card">
+                <h4 class="panel-title"><i class="fas fa-lock neon-green"></i> 3. SSL / TLS Certificate Security &amp; Handshake</h4>
+                <div id="sslStatusNotice" class="ssl-notice"></div>
+                <div class="detail-rows" id="sslDetailsRows">
+                  <div class="detail-row">
+                    <span class="detail-label">Certificate Issuer:</span>
+                    <span class="detail-value" id="sslIssuer">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Subject Common Name:</span>
+                    <span class="detail-value" id="sslSubject">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Valid From:</span>
+                    <span class="detail-value mono" id="sslValidFrom">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Valid Until:</span>
+                    <span class="detail-value mono" id="sslValidTo">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Days Remaining:</span>
+                    <span class="detail-value" id="sslDaysRemaining">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Self-Signed Flag:</span>
+                    <span class="detail-value" id="sslSelfSigned">-</span>
+                  </div>
+                  <div class="detail-row">
+                    <span class="detail-label">Subject Alt Names (SAN):</span>
+                    <div class="detail-value tag-group" id="sslSanTags">
+                      <span class="cyber-tag">None</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: REDIRECT SEQUENCE -->
+          <div class="tab-panel active" id="tab-redirects">
+            <div class="panel-card">
+              <div class="panel-header-flex">
+                <h4 class="panel-title"><i class="fas fa-exchange-alt neon-violet"></i> 4. Redirect Route Sequence &amp; Chain Timeline</h4>
+                <div class="redirect-meta-badges">
+                  <span class="badge" id="redirectHopCountBadge">0 Hops</span>
+                  <span class="badge" id="redirectDowngradeBadge">No Protocol Downgrade</span>
+                  <span class="badge" id="redirectCrossDomainBadge">Same Domain</span>
+                </div>
+              </div>
+
+              <!-- FEATURE 2: Animated Node & Arrow Graph Visualizer -->
+              <div class="redirect-visualizer-wrapper mt-3 mb-4">
+                <div class="visualizer-header">
+                  <span class="visualizer-title"><i class="fas fa-project-diagram neon-cyan"></i> Animated Visual Route Map</span>
+                  <span class="visualizer-subtitle text-muted">Click any node to view full HTTP headers &amp; latency</span>
+                </div>
+                <div class="redirect-nodes-container" id="redirectNodesContainer">
+                  <!-- Populated dynamically with glowing cards and animated arrows -->
+                </div>
+              </div>
+
+              <!-- Timeline view -->
+              <div class="redirect-timeline" id="redirectTimelineContainer">
+                <!-- Dynamically populated hops -->
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: SECURITY FLAGS -->
+          <div class="tab-panel active" id="tab-flags">
+            <div class="panel-card">
+              <h4 class="panel-title"><i class="fas fa-shield-virus neon-cyan"></i> 5. Detected Heuristic Security Flags &amp; Threats</h4>
+              <p class="text-muted mb-3">
+                Rules evaluate RFC abnormalities, deception indicators, brand spoofing, and infrastructure risks.
+              </p>
+
+              <div class="flags-grid" id="flagsGridContainer">
+                <!-- Populated dynamically via JS -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: KNOWLEDGE BASE & ETHICS -->
+    <section id="about-section" class="tool-section">
+      <div class="section-header">
+        <div class="section-tag neon-green"><i class="fas fa-balance-scale"></i> MODULE 03</div>
+        <h2 class="section-title">Cybersecurity Knowledge Base & Investigation Playbook</h2>
+        <p class="section-desc">
+          Comprehensive reference materials on advanced Google search operators, URL phishing heuristics, 
+          defensive server hardening, and legal rules of engagement for authorized security researchers.
+        </p>
+      </div>
+
+      <!-- Knowledge Base Sub-Navigation Tabs -->
+      <div class="kb-tabs-nav">
+        <button type="button" class="kb-tab-btn active" data-kb="kb-operators">
+          <i class="fas fa-terminal"></i> Search Operators &amp; Dork Defense
+        </button>
+        <button type="button" class="kb-tab-btn" data-kb="kb-heuristics">
+          <i class="fas fa-shield-virus"></i> URL Phishing &amp; Threat Anatomy
+        </button>
+        <button type="button" class="kb-tab-btn" data-kb="kb-playbook">
+          <i class="fas fa-clipboard-list"></i> Analyst Investigation Playbook
+        </button>
+        <button type="button" class="kb-tab-btn" data-kb="kb-ethics">
+          <i class="fas fa-gavel"></i> Ethics &amp; Legal Boundaries
+        </button>
+      </div>
+
+      <!-- KB PANEL 1: SEARCH OPERATORS & DORK DEFENSE -->
+      <div class="kb-panel active" id="kb-operators">
+        <div class="grid-2col">
+          <!-- Operator Syntax Table Card -->
+          <div class="glass-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.1">
+            <h3 class="card-title"><i class="fas fa-code neon-violet"></i> Google Search Operators Master Reference</h3>
+            <p class="card-text mb-3">
+              Search operators permit fine-grained filtering of Google's public web index. They are invaluable for 
+              discovering accidentally exposed endpoints and reviewing organizational attack surfaces.
+            </p>
+            <div class="table-responsive">
+              <table class="cyber-table compact-table">
+                <thead>
+                  <tr>
+                    <th>Operator</th>
+                    <th>Syntax Pattern</th>
+                    <th>Targeted Discovery Purpose</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>site:</code></td>
+                    <td><code>site:domain.com</code></td>
+                    <td>Restricts search results strictly to a domain or subdomain.</td>
+                  </tr>
+                  <tr>
+                    <td><code>filetype:</code> / <code>ext:</code></td>
+                    <td><code>filetype:pdf OR ext:sql</code></td>
+                    <td>Filters by indexed file extension (PDF, SQL, ENV, BAK, CSV).</td>
+                  </tr>
+                  <tr>
+                    <td><code>inurl:</code></td>
+                    <td><code>inurl:login OR inurl:admin</code></td>
+                    <td>Matches keywords positioned anywhere in the URL request path.</td>
+                  </tr>
+                  <tr>
+                    <td><code>intitle:</code></td>
+                    <td><code>intitle:"index of /"</code></td>
+                    <td>Matches exact phrases inside HTML <code>&lt;title&gt;</code> tags.</td>
+                  </tr>
+                  <tr>
+                    <td><code>intext:</code></td>
+                    <td><code>intext:"confidential"</code></td>
+                    <td>Finds specific strings anywhere inside indexed page body text.</td>
+                  </tr>
+                  <tr>
+                    <td><code>related:</code></td>
+                    <td><code>related:domain.com</code></td>
+                    <td>Discovers domains categorized by Google as structurally related.</td>
+                  </tr>
+                  <tr>
+                    <td><code>-exclusion</code></td>
+                    <td><code>site:*.domain.com -www</code></td>
+                    <td>Excludes specific hosts to reveal hidden dev and api subdomains.</td>
+                  </tr>
+                  <tr>
+                    <td><code>quotes ""</code></td>
+                    <td><code>"internal use only"</code></td>
+                    <td>Forces strict literal token matching without fuzzy stemming.</td>
+                  </tr>
+                  <tr>
+                    <td><code>OR / |</code></td>
+                    <td><code>inurl:auth OR inurl:oauth</code></td>
+                    <td>Performs logical disjunction between multiple dork predicates.</td>
+                  </tr>
+                  <tr>
+                    <td><code>wildcard *</code></td>
+                    <td><code>site:*.api.target.com</code></td>
+                    <td>Acts as an arbitrary token or hostname wildcard.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Webmaster Defense & Hardening Guide -->
+          <div class="glass-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.1">
+            <h3 class="card-title"><i class="fas fa-shield-alt neon-cyan"></i> Webmaster Defense &amp; Dork Remediation</h3>
+            <p class="card-text">
+              How website administrators and infrastructure engineers can prevent search engine dorking from exposing sensitive assets:
+            </p>
+            <div class="defense-step-card">
+              <div class="defense-step-header">
+                <i class="fas fa-ban text-red"></i>
+                <strong>1. Disable Server Directory Indexing</strong>
+              </div>
+              <p class="defense-step-body">
+                Prevent Apache or Nginx from listing folder trees when <code>index.html</code> is missing:
+                <br><code># Apache (.htaccess): Options -Indexes</code>
+                <br><code># Nginx: autoindex off;</code>
+              </p>
+            </div>
+
+            <div class="defense-step-card mt-3">
+              <div class="defense-step-header">
+                <i class="fas fa-file-code text-yellow"></i>
+                <strong>2. Restrict Sensitive Extensions at the Proxy Level</strong>
+              </div>
+              <p class="defense-step-body">
+                Block public HTTP access to configuration, database dumps, and version control files:
+                <br><code>location ~* \.(env|cfg|ini|bak|sql|log|yml)$ { deny all; }</code>
+                <br><code>location ~ /\.git { deny all; }</code>
+              </p>
+            </div>
+
+            <div class="defense-step-card mt-3">
+              <div class="defense-step-header">
+                <i class="fas fa-robot text-green"></i>
+                <strong>3. Implement Proper Robots Directives &amp; Headers</strong>
+              </div>
+              <p class="defense-step-body">
+                Note that <code>robots.txt</code> tells cooperative crawlers what not to index, but does <em>not</em> secure assets. 
+                Use the HTTP header <code>X-Robots-Tag: noindex, nofollow</code> on private portals and administrative gateways.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KB PANEL 2: URL PHISHING & THREAT HEURISTICS -->
+      <div class="kb-panel" id="kb-heuristics">
+        <div class="grid-2col">
+          <!-- Threat Anatomy Guide -->
+          <div class="glass-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.1">
+            <h3 class="card-title"><i class="fas fa-biohazard neon-red"></i> Deceptive URL Anatomy &amp; Attack Vectors</h3>
+            
+            <div class="threat-vector-card">
+              <h5 class="threat-title"><i class="fas fa-at neon-red"></i> Userinfo '@' Symbol Spoofing (RFC 3986)</h5>
+              <p class="threat-desc">
+                In standard URL syntax, <code>https://trusted-bank.com@attacker-site.com</code> passes <code>trusted-bank.com</code> 
+                as the HTTP basic authentication username. The browser ignores the text before <code>@</code> and connects 
+                directly to <code>attacker-site.com</code>.
+              </p>
+            </div>
+
+            <div class="threat-vector-card mt-3">
+              <h5 class="threat-title"><i class="fas fa-language neon-yellow"></i> Punycode &amp; IDN Homograph Attacks (xn--)</h5>
+              <p class="threat-desc">
+                Internationalized Domain Names allow non-ASCII characters. Attackers substitute Latin letters with visually identical 
+                Cyrillic glyphs (e.g., Cyrillic <code>а</code> for Latin <code>a</code>). The browser encodes this as 
+                <code>xn--pple-43d.com</code>, tricking users into believing they are visiting <code>apple.com</code>.
+              </p>
+            </div>
+
+            <div class="threat-vector-card mt-3">
+              <h5 class="threat-title"><i class="fas fa-sitemap neon-cyan"></i> Subdomain Stacking &amp; Brand Spoofing</h5>
+              <p class="threat-desc">
+                Attackers register cheap domains (e.g., <code>verification-update.xyz</code>) and prepend legitimate brands as subdomains 
+                (e.g., <code>paypal.com.verification-update.xyz</code>). On mobile viewports, the actual domain is often pushed out of sight.
+              </p>
+            </div>
+
+            <div class="threat-vector-card mt-3">
+              <h5 class="threat-title"><i class="fas fa-exchange-alt neon-violet"></i> Open Redirects &amp; SSL Protocol Downgrades</h5>
+              <p class="threat-desc">
+                Phishing campaigns leverage open redirect parameters (<code>/redirect?url=...</code>) on legitimate domains to pass 
+                email security filters. Additionally, protocol downgrades shift traffic from HTTPS to unencrypted HTTP to intercept credentials.
+              </p>
+            </div>
+          </div>
+
+          <!-- Risk Scoring Formula Breakdown -->
+          <div class="glass-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.1">
+            <h3 class="card-title"><i class="fas fa-calculator neon-green"></i> Composite Threat Risk &amp; Percentage Model</h3>
+            <p class="card-text mb-3">
+              The engine computes a dynamic threat percentage (5% to 100%) and security trust index evaluating baseline exposure, network hygiene, and 18+ heuristic signals:
+            </p>
+            <div class="table-responsive">
+              <table class="cyber-table compact-table">
+                <thead>
+                  <tr>
+                    <th>Risk Band</th>
+                    <th>Score Range</th>
+                    <th>Evaluation Criteria &amp; Security State</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="severity-pill severity-low">Low Risk</span></td>
+                    <td><code>5% – 29%</code></td>
+                    <td>Verified CA-signed TLS, established domain age, standard RFC syntax, resolved IPs, and 0 threat indicators. Residual 5%–8% reflects baseline public exposure.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="severity-pill severity-medium">Medium Risk</span></td>
+                    <td><code>30% – 69%</code></td>
+                    <td>Unencrypted HTTP, URL shorteners, multiple redirect hops, missing reverse DNS, or young domain ages (<90 days). Requires analyst caution.</td>
+                  </tr>
+                  <tr>
+                    <td><span class="severity-pill severity-critical">High Risk</span></td>
+                    <td><code>70% – 100%</code></td>
+                    <td>Active brand impersonation, deceptive homoglyphs, high-abuse TLDs, phishing keywords, raw IP hosts, or expired/self-signed SSL certificates.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h5 class="sub-panel-title mt-4"><i class="fas fa-list-check"></i> Key Threat Penalty Weights</h5>
+            <div class="table-responsive">
+              <table class="cyber-table compact-table">
+                <thead>
+                  <tr>
+                    <th>Heuristic Signal</th>
+                    <th>Risk Severity</th>
+                    <th>Weight Impact</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Userinfo '@' Credential Spoofing</td>
+                    <td><span class="severity-pill severity-critical">Critical</span></td>
+                    <td>+40 pts</td>
+                  </tr>
+                  <tr>
+                    <td>Brand Impersonation in Subdomain/Path</td>
+                    <td><span class="severity-pill severity-critical">Critical</span></td>
+                    <td>+35 pts</td>
+                  </tr>
+                  <tr>
+                    <td>Direct IP Address as Hostname</td>
+                    <td><span class="severity-pill severity-high">High</span></td>
+                    <td>+30 pts</td>
+                  </tr>
+                  <tr>
+                    <td>Punycode Homograph Encoding (<code>xn--</code>)</td>
+                    <td><span class="severity-pill severity-high">High</span></td>
+                    <td>+25 pts</td>
+                  </tr>
+                  <tr>
+                    <td>HTTPS-to-HTTP Protocol Downgrade</td>
+                    <td><span class="severity-pill severity-high">High</span></td>
+                    <td>+25 pts</td>
+                  </tr>
+                  <tr>
+                    <td>Expired or Self-Signed SSL Certificate</td>
+                    <td><span class="severity-pill severity-high">High</span></td>
+                    <td>+20–25 pts</td>
+                  </tr>
+                  <tr>
+                    <td>High-Abuse Disposable TLD (<code>.xyz, .top, .zip</code>)</td>
+                    <td><span class="severity-pill severity-medium">Medium</span></td>
+                    <td>+18 pts</td>
+                  </tr>
+                  <tr>
+                    <td>URL Shortener Masking (<code>bit.ly, tinyurl</code>)</td>
+                    <td><span class="severity-pill severity-medium">Medium</span></td>
+                    <td>+20 pts</td>
+                  </tr>
+                  <tr>
+                    <td>Multiple Phishing Keywords (<code>login, verify, bank</code>)</td>
+                    <td><span class="severity-pill severity-high">High</span></td>
+                    <td>+15–20 pts</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KB PANEL 3: ANALYST INVESTIGATION PLAYBOOK -->
+      <div class="kb-panel" id="kb-playbook">
+        <div class="glass-card" data-tilt data-tilt-max="3" data-tilt-glare data-tilt-max-glare="0.1">
+          <h3 class="card-title"><i class="fas fa-clipboard-check neon-cyan"></i> Security Analyst Investigation Playbook</h3>
+          <p class="card-text mb-4">
+            A step-by-step methodology for security operations center (SOC) analysts, threat researchers, 
+            and incident responders examining suspicious links and domain footprints:
+          </p>
+
+          <div class="playbook-steps-grid">
+            <div class="playbook-step-card">
+              <div class="step-badge">PHASE 1</div>
+              <h4 class="step-title"><i class="fas fa-passport neon-cyan"></i> Target Authorization &amp; Scoping</h4>
+              <p class="step-desc">
+                Ensure explicit written authorization from the domain owner. Define rules of engagement and verify 
+                that passive analysis will not conflict with enterprise change-freeze policies.
+              </p>
+            </div>
+
+            <div class="playbook-step-card">
+              <div class="step-badge">PHASE 2</div>
+              <h4 class="step-title"><i class="fas fa-layer-group neon-violet"></i> OSINT Surface Discovery</h4>
+              <p class="step-desc">
+                Deploy categorized Google dorks across documents, login portals, and exposed backups. Search Pastebin and 
+                GitHub for developer credential leaks and API keys referencing the domain.
+              </p>
+            </div>
+
+            <div class="playbook-step-card">
+              <div class="step-badge">PHASE 3</div>
+              <h4 class="step-title"><i class="fas fa-microscope neon-green"></i> Structural &amp; Network Dissection</h4>
+              <p class="step-desc">
+                Parse RFC-3986 URL parts, query parameters, and port numbers. Resolve DNS records (IPv4/IPv6, PTR) 
+                and inspect SSL certificate validity, issuer trust, and Subject Alternative Names (SANs).
+              </p>
+            </div>
+
+            <div class="playbook-step-card">
+              <div class="step-badge">PHASE 4</div>
+              <h4 class="step-title"><i class="fas fa-route neon-yellow"></i> Redirect Chain &amp; Threat Scoring</h4>
+              <p class="step-desc">
+                Trace up to 10 redirect hops without downloading payloads. Check for cross-domain hops, HTTPS downgrades, 
+                and evaluate heuristic flags (homoglyphs, brand spoofing, TLD reputation).
+              </p>
+            </div>
+
+            <div class="playbook-step-card">
+              <div class="step-badge">PHASE 5</div>
+              <h4 class="step-title"><i class="fas fa-file-medical-alt neon-red"></i> Reporting &amp; Remediation</h4>
+              <p class="step-desc">
+                Export forensic reports in TXT, CSV, or JSON. If phishing is identified, submit abuse reports to registrars, 
+                publish Indicators of Compromise (IoCs), and configure firewall perimeter blocks.
+              </p>
+            </div>
+          </div>
+
+          <!-- SOC CLI Cheatsheet -->
+          <div class="mt-4 pt-3" style="border-top: 1px solid var(--border-color);">
+            <h4 class="sub-panel-title mb-3"><i class="fas fa-terminal neon-cyan"></i> Defensive Terminal Verification Cheatsheet</h4>
+            <div class="table-responsive">
+              <table class="cyber-table compact-table">
+                <thead>
+                  <tr>
+                    <th>Investigation Objective</th>
+                    <th>Command Pattern</th>
+                    <th>Extracted Intelligence</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>DNS Delegation Trace</td>
+                    <td><code>dig +trace domain.com</code></td>
+                    <td>Validates root, TLD, and authoritative nameserver responses.</td>
+                  </tr>
+                  <tr>
+                    <td>Reverse DNS Verification</td>
+                    <td><code>dig -x &lt;IP&gt; +short</code></td>
+                    <td>Checks assigned PTR hostname for infrastructure legitimacy.</td>
+                  </tr>
+                  <tr>
+                    <td>TLS Handshake Inspection</td>
+                    <td><code>openssl s_client -connect domain.com:443 -servername domain.com &lt;/dev/null</code></td>
+                    <td>Inspects certificate chain, CA issuer, validity dates, and ciphers.</td>
+                  </tr>
+                  <tr>
+                    <td>Passive Redirect Tracing</td>
+                    <td><code>curl -ILs -o /dev/null -w "%{http_code} -&gt; %{url_effective}\n" https://target.com</code></td>
+                    <td>Follows redirect hops safely without downloading malware payloads.</td>
+                  </tr>
+                  <tr>
+                    <td>RDAP / WHOIS Records</td>
+                    <td><code>whois domain.com</code></td>
+                    <td>Exposes registrar abuse contacts, creation dates, and DNS servers.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- KB PANEL 4: ETHICS & LEGAL BOUNDARIES -->
+      <div class="kb-panel" id="kb-ethics">
+        <div class="grid-2col">
+          <div class="glass-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.1">
+            <h3 class="card-title"><i class="fas fa-user-shield neon-cyan"></i> Ethical Rules of Engagement</h3>
+            <p class="card-text">
+              Authorized cybersecurity research requires strict adherence to ethical standards:
+            </p>
+            <ul class="cyber-list">
+              <li><i class="fas fa-check-circle text-green"></i> <strong>Passive Analysis Only:</strong> Do not exploit discovered vulnerabilities or probe unauthorized networks.</li>
+              <li><i class="fas fa-check-circle text-green"></i> <strong>Respect Data Privacy:</strong> If sensitive personnel records or credentials are found in public indexes, report them responsibly.</li>
+              <li><i class="fas fa-check-circle text-green"></i> <strong>No Denial of Service:</strong> Never issue high-volume automated requests that degrade target availability.</li>
+              <li><i class="fas fa-check-circle text-green"></i> <strong>Coordinated Vulnerability Disclosure:</strong> Provide domain owners a reasonable timeframe to remediate leaks before public discussion.</li>
+            </ul>
+          </div>
+
+          <div class="glass-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.1">
+            <h3 class="card-title"><i class="fas fa-gavel neon-violet"></i> Legal Frameworks &amp; Compliance</h3>
+            <p class="card-text mb-3">
+              Key legislation governing cybersecurity assessments and information gathering:
+            </p>
+            <ul class="cyber-list">
+              <li><strong>CFAA (United States):</strong> Prohibits accessing protected computers without authorization. Safe harbor requires documented consent.</li>
+              <li><strong>Computer Misuse Act 1990 (United Kingdom):</strong> Section 1 &amp; 3 prohibit unauthorized access or acts impairing computer operation.</li>
+              <li><strong>GDPR / EU Cyber Resilience Act:</strong> Processing discovered personal data requires lawful basis and data protection impact assessments.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- SECTION 5: HELP CENTER (Modern Interactive Knowledge Center) -->
+    <section id="help-section" class="tool-section help-center-module">
+      <!-- HERO HEADER -->
+      <div class="help-hero">
+        <h2 class="help-hero-title">How can we help you?</h2>
+        <p class="help-hero-subtitle">Search guides, fix account problems, or report a threat.</p>
+
+        <!-- Search Bar with Ctrl+K -->
+        <div class="help-search-box">
+          <i class="fas fa-search help-search-icon"></i>
+          <input 
+            type="text" 
+            id="helpSearchInput" 
+            class="help-search-input" 
+            placeholder='Search for "reset two-factor"'
+            autocomplete="off"
+            aria-label="Search help center guides"
+          >
+          <kbd class="help-search-kbd">Ctrl K</kbd>
+        </div>
+
+        <!-- Filter Tags -->
+        <div class="help-tags-row">
+          <button type="button" class="help-tag-pill" data-query="phishing">Phishing</button>
+          <button type="button" class="help-tag-pill" data-query="dorks">Google Dorks</button>
+          <button type="button" class="help-tag-pill" data-query="redirects">Redirects</button>
+          <button type="button" class="help-tag-pill" data-query="dns">DNS & SSL</button>
+          <button type="button" class="help-tag-pill" data-query="heuristics">Heuristics</button>
+          <button type="button" class="help-tag-pill" data-query="reports">Audit Reports</button>
+        </div>
+      </div>
+
+      <!-- 8 CATEGORY CARDS GRID -->
+      <div class="help-cards-grid" id="helpCategoriesGrid">
+        <!-- 1. Getting started -->
+        <div class="help-cat-card" data-cat="getting-started" tabindex="0" role="button" title="View Getting Started guides">
+          <div class="help-cat-icon icon-getting-started">
+            <i class="fas fa-rocket"></i>
+          </div>
+          <h4 class="help-cat-title">Getting started</h4>
+          <p class="help-cat-desc">Set up your account and first scan</p>
+        </div>
+
+        <!-- 2. OSINT & Google Dorks -->
+        <div class="help-cat-card" data-cat="osint-dorks" tabindex="0" role="button" title="View OSINT & Google Dorks guides">
+          <div class="help-cat-icon icon-osint-dorks">
+            <i class="fas fa-search"></i>
+          </div>
+          <h4 class="help-cat-title">OSINT & Google Dorks</h4>
+          <p class="help-cat-desc">Search operators & asset discovery</p>
+        </div>
+
+        <!-- 3. Scans and reports -->
+        <div class="help-cat-card" data-cat="scans-reports" tabindex="0" role="button" title="View Scans & Reports guides">
+          <div class="help-cat-icon icon-scans-reports">
+            <i class="fas fa-broadcast-tower"></i>
+          </div>
+          <h4 class="help-cat-title">Scans and reports</h4>
+          <p class="help-cat-desc">Passive heuristics & URL findings</p>
+        </div>
+
+        <!-- 4. Incident response -->
+        <div class="help-cat-card" data-cat="incident-response" tabindex="0" role="button" title="View Incident Response playbooks">
+          <div class="help-cat-icon icon-incident-response">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <h4 class="help-cat-title">Incident response</h4>
+          <p class="help-cat-desc">What to do during an attack</p>
+        </div>
+
+        <!-- 5. Account security -->
+        <div class="help-cat-card" data-cat="account-security" tabindex="0" role="button" title="View Account Security guides">
+          <div class="help-cat-icon icon-account-security">
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <h4 class="help-cat-title">Account security</h4>
+          <p class="help-cat-desc">Passwords, 2FA, and access control</p>
+        </div>
+
+        <!-- 6. DNS, SSL & Domain -->
+        <div class="help-cat-card" data-cat="dns-ssl" tabindex="0" role="button" title="View DNS & SSL guides">
+          <div class="help-cat-icon icon-dns-ssl">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h4 class="help-cat-title">DNS, SSL & Domain</h4>
+          <p class="help-cat-desc">IPs, certs & cryptographic validity</p>
+        </div>
+
+        <!-- 7. Redirect Traversal -->
+        <div class="help-cat-card" data-cat="redirect-traversal" tabindex="0" role="button" title="View Redirect & Routing guides">
+          <div class="help-cat-icon icon-redirect-traversal">
+            <i class="fas fa-route"></i>
+          </div>
+          <h4 class="help-cat-title">Redirects & Loops</h4>
+          <p class="help-cat-desc">Multi-hop hops & protocol downgrades</p>
+        </div>
+
+        <!-- 8. Compliance & PDF Audits -->
+        <div class="help-cat-card" data-cat="compliance" tabindex="0" role="button" title="View Compliance & Audit guides">
+          <div class="help-cat-icon icon-compliance">
+            <i class="fas fa-award"></i>
+          </div>
+          <h4 class="help-cat-title">Compliance & Audits</h4>
+          <p class="help-cat-desc">ISO 27001, GDPR & PDF reporting</p>
+        </div>
+      </div>
+
+      <!-- LOWER SPLIT SECTION: Popular Articles & Under Attack Right Now -->
+      <div class="help-lower-grid">
+        <!-- LEFT COLUMN: Popular Articles -->
+        <div class="help-popular-box">
+          <h3 class="help-section-heading">Popular articles</h3>
+          <div class="help-articles-list" id="helpArticlesList">
+            <div class="help-article-item" data-article="2fa" tabindex="0" role="button">
+              <span class="help-article-title">How to enable two-factor login</span>
+              <i class="fas fa-chevron-right help-article-arrow"></i>
+            </div>
+            <div class="help-article-item" data-article="phishing" tabindex="0" role="button">
+              <span class="help-article-title">Spot and report a phishing email</span>
+              <i class="fas fa-chevron-right help-article-arrow"></i>
+            </div>
+            <div class="help-article-item" data-article="vuln-score" tabindex="0" role="button">
+              <span class="help-article-title">Understand your vulnerability score</span>
+              <i class="fas fa-chevron-right help-article-arrow"></i>
+            </div>
+            <div class="help-article-item" data-article="data-breach" tabindex="0" role="button">
+              <span class="help-article-title">What to do after a data breach</span>
+              <i class="fas fa-chevron-right help-article-arrow"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Under Attack Alert Card -->
+        <div class="help-attack-card">
+          <div class="attack-card-header">
+            <span class="attack-card-beacon"><i class="fas fa-bell"></i></span>
+            <h3 class="attack-card-title">Under attack right now?</h3>
+          </div>
+          <p class="attack-card-text">Our response team answers around the clock.</p>
+          <button type="button" class="btn btn-attack-report" id="reportIncidentBtn">
+            <i class="fas fa-shield-virus"></i> Report an incident
+          </button>
+        </div>
+      </div>
+
+      <!-- BOTTOM SUPPORT BAR: Can't find an answer? -->
+      <div class="help-footer-bar">
+        <div class="help-footer-prompt">Can't find an answer?</div>
+        <div class="help-footer-actions">
+          <button type="button" class="help-footer-link" id="helpEmailSupportBtn">
+            <i class="far fa-envelope"></i> Email support
+          </button>
+          <button type="button" class="help-footer-link" id="helpOpenTicketBtn">
+            <i class="far fa-clipboard"></i> Open a ticket
+          </button>
+        </div>
+      </div>
+
+      <!-- DISCREET RESEARCH LAB & PROJECT ATTRIBUTION -->
+      <div class="help-project-attribution">
+        <span><i class="fas fa-shield-alt neon-cyan"></i> {{ project_info.name }} v{{ app_version }}</span>
+        <span>•</span>
+        <span>Research Lab: {{ project_info.developer_name }} ({{ project_info.course }})</span>
+        <span>•</span>
+        <a href="{{ project_info.github_url }}" target="_blank" rel="noopener noreferrer" class="neon-cyan">
+          <i class="fab fa-github"></i> Repository
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="cyber-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Logo" class="footer-logo">
+        <div>
+          <div class="footer-title">{{ app_name }}</div>
+          <div class="footer-copy">Built for defensive cybersecurity analysts, website administrators, and OSINT researchers.</div>
+        </div>
+      </div>
+      <div class="footer-right">
+        <div class="footer-clock" id="liveUtcClock">00:00:00 IST (Kolkata)</div>
+        <div class="footer-links">
+          <a href="#hero">Top</a>
+          <a href="#dork-section">OSINT</a>
+          <a href="#analyzer-section">URL Analyzer</a>
+          <a href="#about-section">Ethics</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ETHICAL DISCLAIMER MODAL (FIRST VISIT) -->
+  <div class="modal-backdrop hidden" id="ethicsModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card" data-tilt data-tilt-max="5" data-tilt-glare data-tilt-max-glare="0.2">
+      <div class="modal-header" style="position: relative;">
+        <div class="modal-icon-badge">
+          <i class="fas fa-shield-alt neon-cyan"></i>
+        </div>
+        <h3 id="modalTitle" class="modal-title">Authorized Use Policy</h3>
+        <button type="button" class="modal-close-btn" id="closeEthicsModalBtn" aria-label="Close modal" style="position: absolute; top: 0; right: 0;">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Welcome to the <strong>Security Analysis & URL Intelligence Generator</strong>.
+        </p>
+        <p>
+          This system is provided exclusively for <strong>authorized cybersecurity research, defensive auditing, and educational use</strong>. 
+          By proceeding, you explicitly affirm that:
+        </p>
+        <ul class="modal-list">
+          <li>You are the registered domain administrator or possess written permission from the owner.</li>
+          <li>You will not use generated queries or intelligence for unlawful reconnaissance, harassment, or unauthorized exploitation.</li>
+          <li>You understand that queries are executed manually through third-party search engines subject to their respective terms of service.</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="acknowledgeEthicsBtn" class="btn btn-primary cyber-button glow-cyan w-100">
+          <i class="fas fa-handshake"></i> I Understand &amp; Agree
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PDF REPORT GENERATION MODAL (Feature 4) -->
+  <div class="modal-backdrop hidden" id="pdfReportModal" role="dialog" aria-modal="true" aria-labelledby="pdfModalTitle">
+    <div class="modal-card pdf-modal-card" data-tilt data-tilt-max="4" data-tilt-glare data-tilt-max-glare="0.15">
+      <div class="modal-header">
+        <div class="modal-icon-badge">
+          <i class="fas fa-file-pdf neon-cyan"></i>
+        </div>
+        <div>
+          <h3 id="pdfModalTitle" class="modal-title">Export Executive PDF Assessment</h3>
+          <p class="text-muted" style="font-size: 0.8rem; margin: 0;">Generate an audit document with telemetry, score breakdowns &amp; defender checklists</p>
+        </div>
+        <button type="button" class="modal-close-btn" id="closePdfModalBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group mb-3">
+          <label for="pdfReportTitleInput" class="form-label">Report Title</label>
+          <input type="text" id="pdfReportTitleInput" class="cyber-input" value="URL Security &amp; Threat Assessment Report">
+        </div>
+        <div class="form-group mb-3">
+          <label for="pdfPreparedByInput" class="form-label">Prepared By (Analyst / Research Lab)</label>
+          <input type="text" id="pdfPreparedByInput" class="cyber-input" value="Senior Cybersecurity Analyst">
+        </div>
+        <div class="form-check mb-2">
+          <input type="checkbox" id="pdfIncludeDorksCheck" class="cyber-checkbox" checked>
+          <label for="pdfIncludeDorksCheck" class="form-check-label" style="font-size: 0.85rem;">Include generated OSINT dork queries (if generated in session)</label>
+        </div>
+        <div class="pdf-preview-pill">
+          <i class="fas fa-info-circle neon-cyan"></i>
+          <span>Includes Executive Summary, URL Structure, SSL Verification, Redirect Hop Table, Triggered Flags, Score Breakdown, and Defender Checklist.</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="cancelPdfModalBtn" class="btn btn-outline">Cancel</button>
+        <button type="button" id="confirmGeneratePdfBtn" class="btn btn-primary cyber-button glow-cyan">
+          <span class="btn-text"><i class="fas fa-file-download"></i> Generate &amp; Download PDF</span>
+          <span class="spinner hidden"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REDIRECT HOP DETAILS MODAL (Feature 2) -->
+  <div class="modal-backdrop hidden" id="hopDetailModal" role="dialog" aria-modal="true" aria-labelledby="hopModalTitle">
+    <div class="modal-card hop-modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-badge">
+          <i class="fas fa-project-diagram neon-cyan"></i>
+        </div>
+        <div>
+          <h3 id="hopModalTitle" class="modal-title">Hop Telemetry Details</h3>
+          <span class="text-muted" id="hopModalSubtitle" style="font-size: 0.8rem;">Hop #1</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeHopModalBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="detail-rows">
+          <div class="detail-row">
+            <span class="detail-label">Status Code:</span>
+            <span class="detail-value mono" id="hopDetailStatus">200 OK</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Response Latency:</span>
+            <span class="detail-value mono text-cyan" id="hopDetailLatency">0.0 ms</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Observed URL:</span>
+            <span class="detail-value mono" id="hopDetailUrl" style="word-break: break-all;">-</span>
+          </div>
+          <div class="detail-row" id="hopDetailNextRow">
+            <span class="detail-label">Next Location:</span>
+            <span class="detail-value mono text-cyan" id="hopDetailNext" style="word-break: break-all;">-</span>
+          </div>
+          <div class="detail-row">
+            <span class="detail-label">Redirection Observation:</span>
+            <span class="detail-value" id="hopDetailType">Same Domain / Normal</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="closeHopDetailFooterBtn" class="btn btn-outline w-100">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HELP CENTER ARTICLE VIEWER MODAL -->
+  <div class="modal-backdrop hidden" id="helpArticleModal" role="dialog" aria-modal="true" aria-labelledby="helpArticleModalTitle">
+    <div class="modal-card article-modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-badge" id="helpArticleModalBadge">
+          <i class="fas fa-book-open neon-cyan"></i>
+        </div>
+        <div class="flex-grow-1">
+          <div class="article-meta-row">
+            <span class="badge" id="helpArticleCategoryBadge">Account Security</span>
+            <span class="text-muted" id="helpArticleReadTime" style="font-size: 0.78rem;">3 min read</span>
+          </div>
+          <h3 id="helpArticleModalTitle" class="modal-title" style="margin-top: 4px;">Article Title</h3>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeHelpArticleModalBtn" aria-label="Close article modal">&times;</button>
+      </div>
+      <div class="modal-body" id="helpArticleModalBody">
+        <!-- Rendered dynamically -->
+      </div>
+      <div class="modal-footer" style="justify-content: space-between;">
+        <div class="article-feedback-row">
+          <span class="text-muted" style="font-size: 0.85rem;">Was this helpful?</span>
+          <button type="button" class="btn btn-sm btn-outline feedback-btn" id="helpFeedbackYesBtn"><i class="fas fa-thumbs-up"></i> Yes</button>
+          <button type="button" class="btn btn-sm btn-outline feedback-btn" id="helpFeedbackNoBtn"><i class="fas fa-thumbs-down"></i> No</button>
+        </div>
+        <button type="button" id="closeHelpArticleFooterBtn" class="btn btn-outline">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HELP CENTER SUPPORT & INCIDENT TICKET MODAL -->
+  <div class="modal-backdrop hidden" id="helpTicketModal" role="dialog" aria-modal="true" aria-labelledby="ticketModalTitle">
+    <div class="modal-card ticket-modal-card">
+      <div class="modal-header">
+        <div class="modal-icon-badge" id="ticketModalBadge">
+          <i class="fas fa-headset neon-cyan"></i>
+        </div>
+        <div>
+          <h3 id="ticketModalTitle" class="modal-title">Submit Support Ticket</h3>
+          <span class="text-muted" id="ticketModalSubtitle" style="font-size: 0.8rem;">Our cybersecurity response team will assist you</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="closeHelpTicketModalBtn" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="contactForm" class="contact-form" novalidate>
+          <!-- Hidden honeypot field to trap automated spam bots -->
+          <div style="display: none;" aria-hidden="true">
+            <input type="text" name="honeypot" id="contactHoneypot" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-row-2col mb-3">
+            <div class="form-group">
+              <label for="contactName" class="form-label">Full Name <span class="text-red">*</span></label>
+              <input type="text" id="contactName" class="cyber-input" placeholder="e.g. Alex Mercer" required>
+              <span class="form-error" id="contactNameError"></span>
+            </div>
+            <div class="form-group">
+              <label for="contactEmail" class="form-label">Email Address <span class="text-red">*</span></label>
+              <input type="email" id="contactEmail" class="cyber-input" placeholder="name@organization.edu" required>
+              <span class="form-error" id="contactEmailError"></span>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="contactSubject" class="form-label">Subject / Incident Summary <span class="text-red">*</span></label>
+            <input type="text" id="contactSubject" class="cyber-input" placeholder="e.g. Inquiry regarding Threat Heuristics or Active Incident" required>
+            <span class="form-error" id="contactSubjectError"></span>
+          </div>
+
+          <div class="form-group mb-3">
+            <label for="contactMessage" class="form-label">Message / Threat Details <span class="text-red">*</span></label>
+            <textarea id="contactMessage" class="cyber-input cyber-textarea" rows="4" placeholder="Type your inquiry, observation, or attack indicators here (minimum 10 characters)..." required></textarea>
+            <span class="form-error" id="contactMessageError"></span>
+          </div>
+
+          <div class="modal-footer" style="padding: 1rem 0 0 0; border-top: none;">
+            <button type="button" id="cancelHelpTicketModalBtn" class="btn btn-outline">Cancel</button>
+            <button type="submit" id="contactSubmitBtn" class="btn btn-primary cyber-button glow-cyan">
+              <span class="btn-text"><i class="fas fa-paper-plane"></i> Submit Request</span>
+              <span class="spinner hidden"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION STACK -->
+  <div class="toast-stack" id="toastStack" aria-live="polite"></div>
+
+  <!-- CDN Scripts: Three.js, Vanilla-Tilt, GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <!-- Application Scripts -->
+  <script src="{{ url_for('static', filename='js/three-bg.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}?v=4.0"></script>
+</body>
+</html>
